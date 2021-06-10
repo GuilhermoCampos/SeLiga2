@@ -114,6 +114,11 @@ body{
     display: none;
 }
 
+.notaAvaliacao{
+    color: white;
+    font-weight: 700;
+}
+
 .titulo{
     color: whitesmoke;
     margin-top: 30px;

@@ -243,6 +243,8 @@ function carregaPrincipal(){
                     addItem.innerHTML = '';
         }
         var loop = setInterval(()=>{
+            let estrelaCheia = '★';
+            let estrelaVazia = '☆';
 
             let ativo = '';
             if (i == 1){
@@ -253,6 +255,9 @@ function carregaPrincipal(){
             console.log(id, i);
             let titulo = item[i]["title"];
             let sinopse = item[i]["overview"];
+            let estrela = item[i]["vote_average"]/2;
+            let nota = parseInt(estrela);
+            console.log(estrela)
             if (sinopse.length == 0){
                 sinopse = 'Sinopse não encontrada'
             }
@@ -283,7 +288,7 @@ function carregaPrincipal(){
                                     <br><strong>Elenco:</strong>
                                     Awkwafina | Kelly Marie Tran | Gemma Chan | Alan Tudyk 
                                     <br><Strong>Avaliação:</Strong>
-                                    <span class="estrelas">★★★★☆</span>
+                                    <span class="estrelas">${estrelaCheia.repeat(nota)}${estrelaVazia.repeat(5-nota)} <span class="notaAvaliacao">${estrela}</span></span>
                                 </div>
                             </div>
                         </div>
@@ -414,59 +419,59 @@ function mudaGenero(gen=0){
             break;
         case 5:
             cat="Animação";
-            idCat = '35';
+            idCat = '16';
             break;
         case 6:
-            cat="Animação";
-            idCat = '35';
+            cat="Crime";
+            idCat = '80';
             break;
         case 7:
-            cat="Animação";
-            idCat = '35';
+            cat="Documentário";
+            idCat = '99';
             break;
         case 8:
-            cat="Animação";
-            idCat = '35';
+            cat="Drama";
+            idCat = '18';
             break;
         case 9:
-            cat="Animação";
-            idCat = '35';
+            cat="Familia";
+            idCat = '10751';
             break;
         case 10:
-            cat="Animação";
-            idCat = '35';
+            cat="Fantasia";
+            idCat = '14';
             break;
         case 11:
-            cat="Animação";
-            idCat = '35';
+            cat="História";
+            idCat = '36';
             break;
         case 12:
-            cat="Animação";
-            idCat = '35';
+            cat="Horror";
+            idCat = '27';
             break;
         case 13:
-            cat="Animação";
-            idCat = '35';
+            cat="Musical";
+            idCat = '10402';
             break;
         case 14:
-            cat="Animação";
-            idCat = '35';
+            cat="Mistério";
+            idCat = '9648';
             break;
         case 15:
-            cat="Animação";
-            idCat = '35';
+            cat="Ficção Ciêntifica";
+            idCat = '878';
             break;
         case 16:
-            cat="Animação";
-            idCat = '35';
+            cat="Guerra";
+            idCat = '10752';
             break;
         case 17:
-            cat="Animação";
-            idCat = '35';
+            cat="Velho Oeste";
+            idCat = '37';
             break;
         case 18:
-            cat="Animação";
-            idCat = '35';
+            cat="Suspense";
+            idCat = '53';
             break;
     }
     visor.innerHTML = `Categoria: ${cat}`;
