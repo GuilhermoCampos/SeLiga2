@@ -167,6 +167,7 @@ function carregaDestaques(genero=''){
             }
 
             let id = poster[i]["id"];
+            let title = poster[i]["title"];
             let foto = poster[i]["poster_path"];
 
             let addPoster = document.getElementById("addPoster");
@@ -175,12 +176,14 @@ function carregaDestaques(genero=''){
                 addPoster.innerHTML = `
                 <div class="col-sm-12 col-md-6 col-lg-3 ${mobile}">
                     <a href="${id}"><img src="https://image.tmdb.org/t/p/w300/${foto}" alt=""></a>
+                    <h6>${title}</h6>
                 </div>`;
             }
             else{
                 addPoster.innerHTML += `
                 <div class="col-sm-12 col-md-6 col-lg-3 ${mobile}">
                     <a href="${id}"><img src="https://image.tmdb.org/t/p/w300/${foto}" alt=""></a>
+                    <h6>${title}</h6>
                 </div>`;
             }
             console.log("imprime poster");
@@ -207,12 +210,14 @@ function carregaMaisDestaque(){
         }
 
         let id = poster[i]["id"];
+        let title = poster[i]["title"];
         let foto = poster[i]["poster_path"];
 
         let addPoster = document.getElementById("addPoster");
         addPoster.innerHTML += `
         <div class="col-sm-12 col-md-6 col-lg-3 ${mobile}">
             <a href="${id}"><img src="https://image.tmdb.org/t/p/w300/${foto}" alt=""></a>
+            <h6>${title}</h6>
         </div>`;
         console.log("imprime poster");
 
@@ -376,4 +381,19 @@ window.onload = () => {
             console.log('expande');
         };
     }
+*/
+
+/*
+
+let quebrado = 4.7
+
+let conserta = parseInt(quebrado)
+
+conserta
+4
+
+let teste = '*'
+
+teste.repeat(5)
+"*****"
 */
