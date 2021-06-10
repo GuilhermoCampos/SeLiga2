@@ -125,24 +125,22 @@ body{
 
 .destaques-img img{
     height: 350px;
-    margin-right: 30px;
-    margin-top: 20px;
+    margin: 10px auto;
     padding: 10px;
     background-color: rgb(72, 79, 87);
     border-radius: 10px;
 }
-.destaques-img a{
+.destaques-img div{
     color: white;
-    text-align: center;
     text-decoration: none;
+    align-items: center;
+    text-align: center;
 }
-
-.alinhaPoster{
-    margin: 0 auto;
-}
-
 .carregar-mais{
     margin-top: 40px;
+}
+.destaques-img div:active{
+    background-color: white;
 }
 
 .foto-usuario{
