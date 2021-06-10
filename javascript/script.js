@@ -331,13 +331,13 @@ function carregaDestaques(genero=''){
 
                 if (parouEm==0){
                     addPoster.innerHTML = `
-                    <div class="col-sm-12 col-md-6 col-lg-3 ${mobile}">
+                    <div class="col-sm-12 col-md-6 col-lg-3 alinhaPoster ${mobile}">
                         <a href="${id}"><img src="https://image.tmdb.org/t/p/w300/${foto}" alt=""><h6>${title}</h6></a>
                     </div>`;
                 }
                 else{
                     addPoster.innerHTML += `
-                    <div class="col-sm-12 col-md-6 col-lg-3 ${mobile}">
+                    <div class="col-sm-12 col-md-6 col-lg-3 alinhaPoster ${mobile}">
                         <a href="${id}"><img src="https://image.tmdb.org/t/p/w300/${foto}" alt=""><h6>${title}</h6></a>
                     </div>`;
                 }

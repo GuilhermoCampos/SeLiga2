@@ -137,6 +137,10 @@ body{
     text-decoration: none;
 }
 
+.alinhaPoster{
+    margin: 0 auto;
+}
+
 .carregar-mais{
     margin-top: 40px;
 }
