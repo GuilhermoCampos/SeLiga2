@@ -77,13 +77,73 @@ https://api.themoviedb.org/3/trending/movie/day?api_key=e1258f69d2028209abb4b199
 </div>
 */
 
-var tmdbKey = 'e1258f69d2028209abb4b199f1cb534c';
-var newsapiKey = '8ec3aef178a94777be5e7b29b785f87a';
-var parouEm = 0; 
-var poster;
-var principalCarregou = false;
 
-function carregaPrincipal(){
+/*
+function makeRequest(method, url) {
+    return new Promise(function (resolve, reject) {
+        let xhr = new XMLHttpRequest();
+        xhr.open(method, url);
+        xhr.onload = function () {
+            if (this.status >= 200 && this.status < 300) {
+                resolve(xhr.response);
+            } else {
+                reject({
+                    status: this.status,
+                    statusText: xhr.statusText
+                });
+            }
+        };
+        xhr.onerror = function () {
+            reject({
+                status: this.status,
+                statusText: xhr.statusText
+            });
+        };
+        xhr.send();
+    });
+}
+*/
+
+/* listen class
+
+teste.getAttribute("codigo")
+
+var oficinas = document.getElementsByClassName('oficinas');
+
+    for (let i=0; i<oficinas.length; i++){
+        oficinas[i].onclick = (objeto) => {
+
+            console.log('teste');
+
+            for(let i=0; i<oficinas.length; i++){
+                oficinas[i].children[0].children[2].style.display = 'none';
+            }
+
+            let alterna = oficinas[i].children[0].children[2];
+            alterna.style.display = 'block';
+            console.log('expande');
+        };
+    }
+*/
+
+/*
+
+let quebrado = 4.7
+
+let conserta = parseInt(quebrado)
+
+conserta
+4
+
+let teste = '*'
+
+teste.repeat(5)
+"*****"
+*/
+
+
+/*
+async function carregaPrincipal(){
     let xhr = new XMLHttpRequest;
     xhr.open('GET', 'https://api.themoviedb.org/3/trending/movie/day?api_key=e1258f69d2028209abb4b199f1cb534c&language=pt');
     xhr.send();
@@ -110,6 +170,12 @@ function carregaPrincipal(){
             }
 
             xhr.open('GET', `https://api.themoviedb.org/3/movie/${id}/videos?api_key=e1258f69d2028209abb4b199f1cb534c&language=pt-BR`);
+            xhr.onload = ()=> {
+
+            };
+            xhr.onerror = ()=> {
+                alert("QUEBRAAAA");
+            }
             xhr.send();
             console.log("pega video principal")
             setTimeout(()=>{
@@ -152,52 +218,139 @@ function carregaPrincipal(){
     },10);
     
 }
+*/
+
+var tmdbKey = 'e1258f69d2028209abb4b199f1cb534c';
+var newsapiKey = '8ec3aef178a94777be5e7b29b785f87a';
+var parouEm = 0; 
+var poster;
+var temporizador = 0;
+
+function carregaPrincipal(){
+    let xhr = new XMLHttpRequest;
+    xhr.open('GET', 'https://api.themoviedb.org/3/trending/movie/day?api_key=e1258f69d2028209abb4b199f1cb534c&language=pt');
+    xhr.onload = () => {
+        if(xhr.status != 200){
+            alert("Falha ao Carregar Conteudo Principal, Por favor recarregue");
+        }
+
+        let item = JSON.parse(xhr.responseText)["results"];
+        console.log(item);
+        let i = 0;
+
+        if (i==0){
+            let addItem = document.getElementById("addItem");
+                    addItem.innerHTML = '';
+        }
+        var loop = setInterval(()=>{
+
+            let ativo = '';
+            if (i == 1){
+                ativo = 'active';
+            }
+
+            let id = item[i]["id"];
+            console.log(id, i);
+            let titulo = item[i]["title"];
+            let sinopse = item[i]["overview"];
+            if (sinopse.length == 0){
+                sinopse = 'Sinopse não encontrada'
+            }
+
+            xhr.open('GET', `https://api.themoviedb.org/3/movie/${id}/videos?api_key=e1258f69d2028209abb4b199f1cb534c&language=pt-BR`);
+            xhr.onload = ()=> {
+                console.log("pega video principal")
+                setTimeout(()=>{
+                    let chave = JSON.parse(xhr.response)["results"][0]["key"];
+                    console.log(chave, i);
+                    let addItem = document.getElementById("addItem");
+                    addItem.innerHTML += `
+                    <div id="${id}" class="carousel-item ${ativo}">
+                        <div class="row lancamento-conteudo">
+                            <div class="col-sm-12 col-md-6 trailer">
+                                <iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/${chave}" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <div class="col-sm-11 col-md-6 lancamento-text rainbow">
+                                <div>
+                                    <h2>${titulo}</h2>      
+                                    <div class="sinopse">                       
+                                    <strong>Sinopse:</strong>
+                                    ${sinopse}
+                                    </div>
+                                    <br><strong>Diretores: </strong>Carlos López Estrada, Don Hall<strong>
+                                    <br>Roteiro:</strong> Adele Lim, Qui Nguyen
+                                    <br><strong>Estreia: </strong> 04/03/2021
+                                    <br><strong>Elenco:</strong>
+                                    Awkwafina | Kelly Marie Tran | Gemma Chan | Alan Tudyk 
+                                    <br><Strong>Avaliação:</Strong>
+                                    <span class="estrelas">★★★★☆</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                    console.log("imprime principal")
+                }, 25);
+                i++;
+                if(i == 20){
+                    clearInterval(loop);
+                    console.log("para setInterval")
+                }
+            };
+            xhr.onerror = ()=> {
+                alert("QUEBRAAAA");
+            }
+            xhr.send();
+        }, 100);
+    };
+    xhr.send();
+    console.log("pega principal")
+    
+}
 
 function carregaDestaques(genero=''){
     parouEm = 0;
     let xhr = new XMLHttpRequest;
     xhr.open('GET', `https://api.themoviedb.org/3/discover/movie?api_key=e1258f69d2028209abb4b199f1cb534c&language=pt-BR&region=BR&include_adult=true&page=1&with_genres=${genero}`);
+    xhr.onload = () => {
+        setTimeout(()=>{
+            poster = JSON.parse(xhr.responseText)["results"];
+            console.log("print poster", poster);
+            console.log("Carrega genero");
+            for(let i=0; i<4; i++){
+
+                let mobile = '';
+                if(i<2){
+                    mobile = 'mobile-hide medium-hide';
+                }
+
+                let id = poster[i]["id"];
+                let title = poster[i]["title"];
+                let foto = poster[i]["poster_path"];
+
+                let addPoster = document.getElementById("addPoster");
+
+                if (parouEm==0){
+                    addPoster.innerHTML = `
+                    <div class="col-sm-12 col-md-6 col-lg-3 ${mobile}">
+                        <a href="${id}"><img src="https://image.tmdb.org/t/p/w300/${foto}" alt=""><h6>${title}</h6></a>
+                    </div>`;
+                }
+                else{
+                    addPoster.innerHTML += `
+                    <div class="col-sm-12 col-md-6 col-lg-3 ${mobile}">
+                        <a href="${id}"><img src="https://image.tmdb.org/t/p/w300/${foto}" alt=""><h6>${title}</h6></a>
+                    </div>`;
+                }
+                console.log("imprime poster");
+
+                parouEm++;
+            }
+            
+        },200);
+    };
     xhr.send();
     console.log("pega genero");
 
-
-    setTimeout(()=>{
-        poster = JSON.parse(xhr.responseText)["results"];
-        console.log("print poster", poster);
-        console.log("Carrega genero");
-        for(let i=0; i<4; i++){
-
-            let mobile = '';
-            if(i<2){
-                mobile = 'mobile-hide medium-hide';
-            }
-
-            let id = poster[i]["id"];
-            let title = poster[i]["title"];
-            let foto = poster[i]["poster_path"];
-
-            let addPoster = document.getElementById("addPoster");
-
-            if (parouEm==0){
-                addPoster.innerHTML = `
-                <div class="col-sm-12 col-md-6 col-lg-3 ${mobile}">
-                    <a href="${id}"><img src="https://image.tmdb.org/t/p/w300/${foto}" alt=""></a>
-                    <h6>${title}</h6>
-                </div>`;
-            }
-            else{
-                addPoster.innerHTML += `
-                <div class="col-sm-12 col-md-6 col-lg-3 ${mobile}">
-                    <a href="${id}"><img src="https://image.tmdb.org/t/p/w300/${foto}" alt=""></a>
-                    <h6>${title}</h6>
-                </div>`;
-            }
-            console.log("imprime poster");
-
-            parouEm++;
-        }
-        
-    },200);
 }
 
 function carregaMaisDestaque(){
@@ -222,8 +375,7 @@ function carregaMaisDestaque(){
         let addPoster = document.getElementById("addPoster");
         addPoster.innerHTML += `
         <div class="col-sm-12 col-md-6 col-lg-3 ${mobile}">
-            <a href="${id}"><img src="https://image.tmdb.org/t/p/w300/${foto}" alt=""></a>
-            <h6>${title}</h6>
+            <a href="${id}"><img src="https://image.tmdb.org/t/p/w300/${foto}" alt=""><h6>${title}</h6></a>
         </div>`;
         console.log("imprime poster");
 
@@ -332,13 +484,30 @@ function numetoca(){
 
     var loop = setInterval(() => {
         rainbow();
-        setTimeout(()=>{
+        /*setTimeout(()=>{
             clearInterval(loop);
-        }, 200);
+        }, 200);*/
+        if(temporizador == 1){
+            clearInterval(loop);
+            console.log("Pare o Loop")
+        }
     }, 2);
 
+    setTimeout(()=>{
+        temporizador++;
+        console.log("temporizador está em ", temporizador);
+    }, 30000);
+
+    
+    setTimeout(()=>{
+    if(temporizador == 1){
+        clearInterval(loop);
+        console.log("Pare o Loop")
+    }}, 30000);
+
     //tituloLancamento.onclick = clearInterval(loop);
-    clearInterval();
+    //clearInterval();
+    
     var audio = new Audio('./javascript/dontouch.mp3');
     audio.play();
 
@@ -349,25 +518,11 @@ function numetoca(){
     
 }
 
-
-function checkCarregamentos(){
-    setTimeout(()=>{
-        if(!principalCarregou){
-            alert("Não Carregou");
-        }
-        else{
-            alert("Carregou");
-        }
-    }, 2000);
-}
-
-
 window.onload = () => {
     dontTouch.onclick = numetoca
     carregaPrincipal();
     carregaDestaques();
     maisDestaque.onclick = carregaMaisDestaque;
-    checkCarregamentos();
 
     genTodos.onclick = () => mudaGenero(0);
     genAcao.onclick = () => mudaGenero(1);
@@ -389,39 +544,5 @@ window.onload = () => {
     genVelho.onclick = () => mudaGenero(17);
     genSus.onclick = () => mudaGenero(18);
     
-    // teste.getAttribute("codigo")
+    pesquisa.oninput = () => console.log("pesquisou");
 };
-
-/* listen class
-    var oficinas = document.getElementsByClassName('oficinas');
-
-    for (let i=0; i<oficinas.length; i++){
-        oficinas[i].onclick = (objeto) => {
-
-            console.log('teste');
-
-            for(let i=0; i<oficinas.length; i++){
-                oficinas[i].children[0].children[2].style.display = 'none';
-            }
-
-            let alterna = oficinas[i].children[0].children[2];
-            alterna.style.display = 'block';
-            console.log('expande');
-        };
-    }
-*/
-
-/*
-
-let quebrado = 4.7
-
-let conserta = parseInt(quebrado)
-
-conserta
-4
-
-let teste = '*'
-
-teste.repeat(5)
-"*****"
-*/

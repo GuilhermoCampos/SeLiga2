@@ -28,7 +28,33 @@ body{
 }
 
 .form-control{
-    color:whitesmoke;
+    color:black;
+}
+#pesquisa:focusout {
+    color: black;
+}
+#pesquisa:focus{
+    width: 700px;
+}
+.botaoNavegacao{
+    a: b;
+}
+#resultadoPesquisa{
+    width: 700px; 
+    position: absolute; 
+    opacity: 50;
+    background-color: white; 
+    color: black; 
+    z-index: 999; 
+    top: 65px; 
+    right: 133px;
+    border-radius: 0 0 5px 5px;
+    /*
+    border-bottom: 1px solid rgba(1, 120, 255, 0.808);
+    border-left:  1px solid rgba(1, 120, 255, 0.808);
+    border-right:  1px solid rgba(1, 120, 255, 0.808);
+    */
+
 }
 
 .lancamento {
@@ -104,6 +130,11 @@ body{
     padding: 10px;
     background-color: rgb(72, 79, 87);
     border-radius: 10px;
+}
+.destaques-img a{
+    color: white;
+    text-align: center;
+    text-decoration: none;
 }
 
 .carregar-mais{
@@ -291,6 +322,9 @@ body{
 }
 
 @media screen and (min-width:601px) and (max-width:996px){
+    #pesquisa:focus{
+        width: 100%;
+    }
     .carousel-item{
         margin-left: 0px;
         width: 100%;
@@ -298,9 +332,19 @@ body{
     .medium-hide{
         display: none;
     }
+    #resultadoPesquisa{
+        width: 50px; 
+        opacity: 50;
+        background-color: red; 
+        color: black; 
+        z-index: 999; 
+    }
 }
 
 @media screen and (min-width:996) and (max-width:1400){
+    #pesquisa:focus{
+        width: 100%;
+    }
     .destaques-img img{
         width: 200px;
         height: 300px;
@@ -308,5 +352,17 @@ body{
     .carousel-item{
         margin-left: 0px;
         width: 100%;
+    }
+    #resultadoPesquisa{
+        width: 700px; 
+        position: absolute; 
+        opacity: 50;
+        background-color: red; 
+        color: black; 
+        z-index: 999; 
+        top: 65px; 
+        right: 150px;
+        border-radius: 0 0 5px 5px;
+    
     }
 }
