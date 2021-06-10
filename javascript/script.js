@@ -81,6 +81,7 @@ var tmdbKey = 'e1258f69d2028209abb4b199f1cb534c';
 var newsapiKey = '8ec3aef178a94777be5e7b29b785f87a';
 var parouEm = 0; 
 var poster;
+var principalCarregou = false;
 
 function carregaPrincipal(){
     let xhr = new XMLHttpRequest;
@@ -88,7 +89,11 @@ function carregaPrincipal(){
     xhr.send();
     console.log("pega principal")
     setTimeout(()=>{
-    let item = JSON.parse(xhr.responseText)["results"];
+        if(xhr.status != 200){
+            alert("Falha ao Carregar Conteudo Principal, Por favor recarregue");
+        }
+
+        let item = JSON.parse(xhr.responseText)["results"];
         let i = 0;
         var loop = setInterval(()=>{
 
@@ -141,6 +146,7 @@ function carregaPrincipal(){
                 clearInterval(loop);
                 console.log("para setInterval")
             }
+            principalCarregou = true;
         }, 150);
         
     },10);
@@ -191,7 +197,7 @@ function carregaDestaques(genero=''){
             parouEm++;
         }
         
-    },100);
+    },200);
 }
 
 function carregaMaisDestaque(){
@@ -324,14 +330,35 @@ function numetoca(){
         coloridos[i].style.borderRadius = '15px';
     }
 
-    setInterval(() => rainbow(), 2);
+    var loop = setInterval(() => {
+        rainbow();
+        setTimeout(()=>{
+            clearInterval(loop);
+        }, 200);
+    }, 2);
 
-    var audio = new Audio('dontouch.mp3');
+    //tituloLancamento.onclick = clearInterval(loop);
+    clearInterval();
+    var audio = new Audio('./javascript/dontouch.mp3');
     audio.play();
 
     console.log('foi rodado o secret.js');
     alert('Falei pra n me tocar');
+
     
+    
+}
+
+
+function checkCarregamentos(){
+    setTimeout(()=>{
+        if(!principalCarregou){
+            alert("Não Carregou");
+        }
+        else{
+            alert("Carregou");
+        }
+    }, 2000);
 }
 
 
@@ -340,6 +367,7 @@ window.onload = () => {
     carregaPrincipal();
     carregaDestaques();
     maisDestaque.onclick = carregaMaisDestaque;
+    checkCarregamentos();
 
     genTodos.onclick = () => mudaGenero(0);
     genAcao.onclick = () => mudaGenero(1);
