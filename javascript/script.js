@@ -114,7 +114,7 @@ function carregaPrincipal(){
                 <div id="${id}" class="carousel-item ${ativo}">
                     <div class="row lancamento-conteudo">
                         <div class="col-sm-12 col-md-6 trailer">
-                            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${chave}" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/${chave}" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                         <div class="col-sm-11 col-md-6 lancamento-text rainbow">
                             <div>
@@ -351,10 +351,29 @@ window.onload = () => {
     genHorror.onclick = () => mudaGenero(12);
     genMusica.onclick = () => mudaGenero(13);
     genMisterio.onclick = () => mudaGenero(14);
-    genScifi.onclick = () => mudaGenero(15);
+    genSciFi.onclick = () => mudaGenero(15);
     genGuerra.onclick = () => mudaGenero(16);
     genVelho.onclick = () => mudaGenero(17);
     genSus.onclick = () => mudaGenero(18);
     
-
+    // teste.getAttribute("codigo")
 };
+
+/* listen class
+    var oficinas = document.getElementsByClassName('oficinas');
+
+    for (let i=0; i<oficinas.length; i++){
+        oficinas[i].onclick = (objeto) => {
+
+            console.log('teste');
+
+            for(let i=0; i<oficinas.length; i++){
+                oficinas[i].children[0].children[2].style.display = 'none';
+            }
+
+            let alterna = oficinas[i].children[0].children[2];
+            alterna.style.display = 'block';
+            console.log('expande');
+        };
+    }
+*/
