@@ -35,22 +35,29 @@ body{
 }*/
 #resultadoPesquisa{
     position: fixed; 
-    opacity: 0.8;
+    opacity: 0.999;
     background-color: white; 
     color: black; 
     z-index: 999; 
     border-radius: 0 0 5px 5px;
     max-height: 500px;
     overflow: auto;
+    border:solid black;
+    border-width: 0 1px 1px 1px;
     /*
     border-bottom: 1px solid rgba(1, 120, 255, 0.808);
     border-left:  1px solid rgba(1, 120, 255, 0.808);
     border-right:  1px solid rgba(1, 120, 255, 0.808);
     */
-
 }
-#resultadoPesquisa p{
+.tituloPesquisa:hover{
+    background-color: rgb(199, 199, 199); 
+}
+
+.tituloPesquisa {
     color:black;
+    padding: 10px 2px;
+    border-bottom: 1px solid rgb(99, 99, 99);
 }
 
 .lancamento {
@@ -74,14 +81,12 @@ body{
     border-radius: 50px;
     background-color: rgb(42, 42, 43);
 }
-.lancamento h2{
-    height: 76px;
-}
 
-.carousel-item{
+
+/*.carousel-item{
     width: 80%;
     margin-left: 120px;
-}
+}*/
 
 .trailer{
     height: 584;

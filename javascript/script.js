@@ -261,7 +261,7 @@ str.replace()
 /*
 let tamanho = document.getElementById('pesquisa').getBoundingClientRect()
 
-
+ https://api.themoviedb.org/3/movie/40096?api_key=e1258f69d2028209abb4b199f1cb534c&language=pt-BR
 
 
 
@@ -292,7 +292,7 @@ function buscaPesquisa(texto){
         escreve.innerHTML = '';
         for (i=0; i<resposta.length; i++){
             escreve.innerHTML +=`
-            <h7>${resposta[i]["title"]}</h7><hr>
+            <div codigo=${resposta[i]["id"]} class="detalhesFilme tituloPesquisa">${resposta[i]["title"]}</div>
             `;
         }
     
@@ -343,11 +343,12 @@ function carregaPrincipal(){
             xhr.onload = ()=> {
                 console.log("pega video principal")
                 setTimeout(()=>{
+                    let lista = ['pera', 'mamão', 'limão']
                     let chave = JSON.parse(xhr.response)["results"][0]["key"];
                     console.log(chave, i);
                     let addItem = document.getElementById("addItem");
                     addItem.innerHTML += `
-                    <div id="${id}" class="carousel-item ${ativo}">
+                    <div codigo="${id}" class="carousel-item  ${ativo}">
                         <div class="row lancamento-conteudo">
                             <div class="col-sm-12 col-md-6 trailer">
                                 <iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/${chave}" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -359,12 +360,13 @@ function carregaPrincipal(){
                                     <strong>Sinopse:</strong>
                                     ${sinopse}
                                     </div>
+                                    <br><strong>Categorias: </strong>${lista.join('')}<strong>
                                     <br><strong>Popularidade no TMDB: </strong>${popularidade}<strong>
                                     <br><strong>Estreia: </strong> ${lancamento}
                                     <br><Strong>Avaliação:</Strong>
                                     <span class="estrelas">${estrelaCheia.repeat(nota)}${estrelaVazia.repeat(5-nota)} <span class="notaAvaliacao">${estrela}</span></span>
                                     <br><Strong>votos: </Strong<span class="estrelas">${votos}</span>
-                                    <br><button codigo="${id}" type="button" class="btn btn-dark">Mais Info</button>
+                                    <br><button codigo="${id}" type="button" class="btn btn-dark detalhesFilme">Mais Info</button>
                                 </div>
                             </div>
                         </div>
@@ -412,14 +414,14 @@ function carregaDestaques(genero=''){
 
                 if (parouEm==0){
                     addPoster.innerHTML = `
-                    <div class="col-sm-12 col-md-6 col-lg-3 ${mobile}">
-                        <div codigo="${id}"><img src="https://image.tmdb.org/t/p/w300/${foto}" alt=""><h6>${title}</h6></div>
+                    <div codigo="${id}" class="col-sm-12 col-md-6 col-lg-3 detalhesFilme ${mobile}">
+                        <div codigo="${id}"><img codigo="${id}" src="https://image.tmdb.org/t/p/w300/${foto}" alt=""><h6 codigo="${id}">${title}</h6></div>
                     </div>`;
                 }
                 else{
                     addPoster.innerHTML += `
-                    <div class="col-sm-12 col-md-6 col-lg-3 ${mobile}">
-                        <div codigo="${id}"><img src="https://image.tmdb.org/t/p/w300/${foto}" alt=""><h6>${title}</h6></div>
+                    <div codigo="${id}" class="col-sm-12 col-md-6 col-lg-3 detalhesFilme ${mobile}">
+                        <div codigo="${id}"><img codigo="${id}" src="https://image.tmdb.org/t/p/w300/${foto}" alt=""><h6 codigo="${id}">${title}</h6></div>
                     </div>`;
                 }
                 console.log("imprime poster");
@@ -455,8 +457,8 @@ function carregaMaisDestaque(){
 
         let addPoster = document.getElementById("addPoster");
         addPoster.innerHTML += `
-        <div class="col-sm-12 col-md-6 col-lg-3 ${mobile}">
-            <div codigo="${id}"><img src="https://image.tmdb.org/t/p/w300/${foto}" alt=""><h6>${title}</h6></div>
+        <div codigo="${id}" class="col-sm-12 col-md-6 col-lg-3 detalhesFilme ${mobile}">
+            <div codigo="${id}" ><img codigo="${id}" src="https://image.tmdb.org/t/p/w300/${foto}" alt=""><h6 codigo="${id}">${title}</h6></div>
         </div>`;
         console.log("imprime poster");
 
@@ -594,15 +596,69 @@ function numetoca(){
 
     console.log('foi rodado o secret.js');
     alert('Falei pra n me tocar');
+}
 
-    
-    
+function pegaCategoria(objeto){
+    let xhr = new XMLHttpRequest;
+    xhr.open('GET', 'https://api.themoviedb.org/3/genre/movie/list?api_key=e1258f69d2028209abb4b199f1cb534c&language=pt-BR');
+    xhr.onload = () => {
+        let resposta = JSON.parse(xhr.responseText);
+        console.log(resposta);
+    };
+    xhr.send();
+
+/*
+function procuraArray(array, valor){
+    for (i=0; i<array.length;i++){
+        if(array[i]["id"] == valor){
+            return array[i];
+        }
+    return 0;
+    }
+}
+*/
+}
+
+function procuraClique(){
+    setTimeout(()=>{
+        var detalhesFilme = document.getElementsByClassName('detalhesFilme');
+        for (i=0; i<detalhesFilme.length; i++){
+            detalhesFilme[i].addEventListener('click', (teste) => {
+                let codigo = teste.target.getAttribute('codigo');
+                localStorage.setItem('codigo', codigo);
+            });
+    }
+    }, 100);
+    setTimeout(()=>{
+        var detalhesFilme = document.getElementsByClassName('detalhesFilme');
+        for (i=0; i<detalhesFilme.length; i++){
+            detalhesFilme[i].addEventListener('click', (teste) => {
+                let codigo = teste.target.getAttribute('codigo');
+                localStorage.setItem('codigo', codigo);
+                console.log(codigo)
+        });
+    }
+    }, 5000);
+
 }
 
 window.onload = () => {
-    pesquisa.oninput = () => buscaPesquisa(pesquisa.value);
+    pesquisa.oninput = () => {
+        buscaPesquisa(pesquisa.value)
+        procuraClique();
+    };
     dontTouch.onclick = numetoca
     
+    setInterval(()=> {
+        let pesquisa = document.getElementById('pesquisa').getBoundingClientRect();
+        let resultado = document.getElementById('resultadoPesquisa');
+        let latitude = pesquisa["y"] + 38;
+        let longitude = pesquisa["x"];
+        let largura = pesquisa["width"];
+        resultado.style.top = `${latitude}px`;
+        resultado.style.left = `${longitude}px`;
+        resultado.style.width = `${largura}px`
+    }, 1);
 
     pesquisa.onfocus = () => {
         let pesquisa = document.getElementById('pesquisa').getBoundingClientRect();
@@ -611,15 +667,14 @@ window.onload = () => {
         let longitude = pesquisa["x"];
 
         let largura = pesquisa["width"];
-        console.log(latitude)
         resultado.style.top = `${latitude}px`;
         resultado.style.left = `${longitude}px`;
         resultado.style.width = `${largura}px`
     }
-    pesquisa.onblur = () => {
-        let escreve = document.getElementById('resultadoPesquisa');
-        escreve.innerHTML = '';
-    };
+    // pesquisa.onblur = () => {
+    //     let escreve = document.getElementById('resultadoPesquisa');
+    //     escreve.innerHTML = '';
+    // };
 
 
     genTodos.onclick = () => mudaGenero(0);
@@ -646,4 +701,11 @@ window.onload = () => {
     maisDestaque.onclick = carregaMaisDestaque;
 
     carregaPrincipal();
+
+    setTimeout(()=>{
+        let itemCarrosel = document.getElementsByClassName('carousel-item');
+        itemCarrosel[0].classList.add('active');
+    }, 1000);
+
+    procuraClique();
 };
