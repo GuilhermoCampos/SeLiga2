@@ -553,6 +553,7 @@ function mudaGenero(gen=0){
     }
     visor.innerHTML = `Categoria: ${cat}`;
     carregaDestaques(idCat);
+    procuraClique();
 }
 
 function numetoca(){
@@ -712,10 +713,7 @@ window.onload = () => {
     
     carregaDestaques();
     
-    maisDestaque.onclick = () => {
-        carregaMaisDestaque
-        procuraClique();
-    };
+    maisDestaque.onclick = carregaMaisDestaque;
 
     carregaPrincipal();
 

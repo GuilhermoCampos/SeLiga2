@@ -17,12 +17,15 @@ function criaPagina(id){
         let resposta = JSON.parse(xhr.responseText);
         let tituloFilme = resposta["title"];
         let bannerCaminho = resposta["poster_path"]
+        let sinopse = resposta["overview"];
         console.log("estepora", resposta)
 
         let titulo = document.getElementById('tituloFilme');
         titulo.innerHTML = `${tituloFilme}`;
         let banner = document.getElementById('bannerFilme');
-        banner.innerHTML = `<img src="https://image.tmdb.org/t/p/w500/${bannerCaminho}" alt="">`;
+        banner.innerHTML = `<img src="https://image.tmdb.org/t/p/w500/${bannerCaminho}" alt="" style="width:100%;">`;
+        let sinopseFilme = document.getElementById('sinopseFilme');
+        sinopseFilme.innerHTML = `${sinopse}`;
     };
     xhr.send()
 }
