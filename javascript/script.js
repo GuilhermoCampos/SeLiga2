@@ -216,7 +216,10 @@ async function carregaPrincipal(){
         }, 150);
         
     },10);
-    
+
+https://api.themoviedb.org/3/search/movie?api_key=e1258f69d2028209abb4b199f1cb534c&language=pt-BR&query=Gente+Grande&page=1&include_adult=true&region=BR
+
+str.replace()
 }
 */
 
@@ -225,6 +228,33 @@ var newsapiKey = '8ec3aef178a94777be5e7b29b785f87a';
 var parouEm = 0; 
 var poster;
 var temporizador = 0;
+
+function buscaPesquisa(texto){
+    texto = texto.replaceAll(' ', '+');
+
+    xhr = new XMLHttpRequest;
+    xhr.open('GET', `https://api.themoviedb.org/3/search/movie?api_key=e1258f69d2028209abb4b199f1cb534c&language=pt-BR&query=${texto}&page=1&include_adult=true&region=BR`);
+    xhr.onload = () => {
+        let resposta = JSON.parse(xhr.responseText)["results"];
+        
+        let escreve = document.getElementById('resultadoPesquisa');
+        escreve.innerHTML = '';
+        for (i=0; i<resposta.length; i++){
+            escreve.innerHTML +=`
+            <p>${resposta[i]["title"]}</p>
+            `;
+        }
+    
+    };
+    xhr.send();
+    
+    /*
+    let resultado = document.getElementById('resultadoPesquisa');
+    resultado.innerHTML += `
+    <a>${texto.replaceAll(' ', '+')}</a><br>
+    `;
+    */
+}
 
 function carregaPrincipal(){
     let xhr = new XMLHttpRequest;
@@ -247,7 +277,7 @@ function carregaPrincipal(){
             let estrelaVazia = '☆';
 
             let ativo = '';
-            if (i == 1){
+            if (i == 0){
                 ativo = 'active';
             }
 
@@ -549,5 +579,5 @@ window.onload = () => {
     genVelho.onclick = () => mudaGenero(17);
     genSus.onclick = () => mudaGenero(18);
     
-    pesquisa.oninput = () => console.log("pesquisou");
+    pesquisa.oninput = () => buscaPesquisa(pesquisa.value), console.log(pesquisa.value);
 };
