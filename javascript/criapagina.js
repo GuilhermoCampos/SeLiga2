@@ -96,7 +96,11 @@ window.onload = () => {
     genSus.onclick = () => mudaGenero(18);
     
     carregaDestaques();
-    maisDestaque.onclick = carregaMaisDestaque;
+    
+    maisDestaque.onclick = () => {
+        carregaMaisDestaque();
+        procuraClique();
+    };
 
 
     setTimeout(()=>{

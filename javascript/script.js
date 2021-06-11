@@ -713,7 +713,10 @@ window.onload = () => {
     
     carregaDestaques();
     
-    maisDestaque.onclick = carregaMaisDestaque;
+    maisDestaque.onclick = () => {
+        carregaMaisDestaque();
+        procuraClique();
+    };
 
     carregaPrincipal();
 
