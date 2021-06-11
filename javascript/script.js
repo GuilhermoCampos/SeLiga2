@@ -222,6 +222,57 @@ https://api.themoviedb.org/3/search/movie?api_key=e1258f69d2028209abb4b199f1cb53
 str.replace()
 }
 */
+/*
+        let botoes = document.getElementsByClassName('botaoNavegacao')
+        
+
+        for(i=0; i<botoes.length; i++){
+            botoes[i].style.display = 'none';
+        }
+        console.log("Focou no pesquisa");
+    };
+
+    pesquisa.onblur = () => {
+        let botoes = document.getElementsByClassName('botaoNavegacao')
+
+        for(i=0; i<botoes.length; i++){
+            botoes[i].style.display = 'inline-block';
+        }
+        console.log("Focou no pesquisa");
+    };
+
+    pesquisa.onfocusin = () => {
+        let botoes = document.getElementsByClassName('botaoNavegacao')
+
+        for(i=0; i<botoes.length; i++){
+            botoes[i].style.display = 'none';
+        }
+        console.log("Focou no pesquisa");
+    };
+
+    pesquisa.onfocusout = () => {
+        let botoes = document.getElementsByClassName('botaoNavegacao')
+        for(i=0; i<botoes.length; i++){
+            botoes[i].style.display = 'inline-block';
+        }
+        console.log("Saiu da pesquisa");
+    };
+*/
+/*
+let tamanho = document.getElementById('pesquisa').getBoundingClientRect()
+
+
+
+
+
+
+
+
+
+
+
+*/
+/* Testes e Informações Acima Não Mecha */
 
 var tmdbKey = 'e1258f69d2028209abb4b199f1cb534c';
 var newsapiKey = '8ec3aef178a94777be5e7b29b785f87a';
@@ -241,19 +292,12 @@ function buscaPesquisa(texto){
         escreve.innerHTML = '';
         for (i=0; i<resposta.length; i++){
             escreve.innerHTML +=`
-            <p>${resposta[i]["title"]}</p>
+            <h7>${resposta[i]["title"]}</h7><hr>
             `;
         }
     
     };
     xhr.send();
-    
-    /*
-    let resultado = document.getElementById('resultadoPesquisa');
-    resultado.innerHTML += `
-    <a>${texto.replaceAll(' ', '+')}</a><br>
-    `;
-    */
 }
 
 function carregaPrincipal(){
@@ -286,7 +330,10 @@ function carregaPrincipal(){
             let titulo = item[i]["title"];
             let sinopse = item[i]["overview"];
             let estrela = item[i]["vote_average"]/2;
+            let lancamento = item[i]["release_date"].replaceAll('-', '/');
+            let popularidade = item[i]["popularity"];
             let nota = parseInt(estrela);
+            let votos = item[i]["vote_count"];
             console.log(estrela)
             if (sinopse.length == 0){
                 sinopse = 'Sinopse não encontrada'
@@ -312,13 +359,12 @@ function carregaPrincipal(){
                                     <strong>Sinopse:</strong>
                                     ${sinopse}
                                     </div>
-                                    <br><strong>Diretores: </strong>Carlos López Estrada, Don Hall<strong>
-                                    <br>Roteiro:</strong> Adele Lim, Qui Nguyen
-                                    <br><strong>Estreia: </strong> 04/03/2021
-                                    <br><strong>Elenco:</strong>
-                                    Awkwafina | Kelly Marie Tran | Gemma Chan | Alan Tudyk 
+                                    <br><strong>Popularidade no TMDB: </strong>${popularidade}<strong>
+                                    <br><strong>Estreia: </strong> ${lancamento}
                                     <br><Strong>Avaliação:</Strong>
                                     <span class="estrelas">${estrelaCheia.repeat(nota)}${estrelaVazia.repeat(5-nota)} <span class="notaAvaliacao">${estrela}</span></span>
+                                    <br><Strong>votos: </Strong<span class="estrelas">${votos}</span>
+                                    <br><button codigo="${id}" type="button" class="btn btn-dark">Mais Info</button>
                                 </div>
                             </div>
                         </div>
@@ -554,10 +600,27 @@ function numetoca(){
 }
 
 window.onload = () => {
+    pesquisa.oninput = () => buscaPesquisa(pesquisa.value);
     dontTouch.onclick = numetoca
-    carregaPrincipal();
-    carregaDestaques();
-    maisDestaque.onclick = carregaMaisDestaque;
+    
+
+    pesquisa.onfocus = () => {
+        let pesquisa = document.getElementById('pesquisa').getBoundingClientRect();
+        let resultado = document.getElementById('resultadoPesquisa');
+        let latitude = pesquisa["y"] + 38;
+        let longitude = pesquisa["x"];
+
+        let largura = pesquisa["width"];
+        console.log(latitude)
+        resultado.style.top = `${latitude}px`;
+        resultado.style.left = `${longitude}px`;
+        resultado.style.width = `${largura}px`
+    }
+    pesquisa.onblur = () => {
+        let escreve = document.getElementById('resultadoPesquisa');
+        escreve.innerHTML = '';
+    };
+
 
     genTodos.onclick = () => mudaGenero(0);
     genAcao.onclick = () => mudaGenero(1);
@@ -579,5 +642,8 @@ window.onload = () => {
     genVelho.onclick = () => mudaGenero(17);
     genSus.onclick = () => mudaGenero(18);
     
-    pesquisa.oninput = () => buscaPesquisa(pesquisa.value), console.log(pesquisa.value);
+    carregaDestaques();
+    maisDestaque.onclick = carregaMaisDestaque;
+
+    carregaPrincipal();
 };
