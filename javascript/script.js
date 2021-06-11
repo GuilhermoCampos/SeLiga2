@@ -264,7 +264,7 @@ let tamanho = document.getElementById('pesquisa').getBoundingClientRect()
  https://api.themoviedb.org/3/movie/40096?api_key=e1258f69d2028209abb4b199f1cb534c&language=pt-BR
 
 
-
+<br><strong>Categorias: </strong>${lista.join('')}<strong>
 
 
 
@@ -360,7 +360,6 @@ function carregaPrincipal(){
                                     <strong>Sinopse:</strong>
                                     ${sinopse}
                                     </div>
-                                    <br><strong>Categorias: </strong>${lista.join('')}<strong>
                                     <br><strong>Popularidade no TMDB: </strong>${popularidade}<strong>
                                     <br><strong>Estreia: </strong> ${lancamento}
                                     <br><Strong>Avaliação:</Strong>
@@ -598,16 +597,28 @@ function numetoca(){
     alert('Falei pra n me tocar');
 }
 
+/*
 function pegaCategoria(objeto){
     let xhr = new XMLHttpRequest;
     xhr.open('GET', 'https://api.themoviedb.org/3/genre/movie/list?api_key=e1258f69d2028209abb4b199f1cb534c&language=pt-BR');
     xhr.onload = () => {
-        let resposta = JSON.parse(xhr.responseText);
+        let resposta = JSON.parse(xhr.responseText)["genres"];
         console.log(resposta);
+        let lista = [];
+        let teste = [14, 36, 27]
+        for (i=0; i<teste.length;i++){
+            for(j=0; j<resposta.length;j++){
+                if(resposta[j]["id"] == teste[i]){
+                    lista.push(`<b>${resposta[j]["name"]}</b>`);
+                }
+            }
+        }
+        console.log(lista);
+        return lista;
     };
     xhr.send();
 
-/*
+
 function procuraArray(array, valor){
     for (i=0; i<array.length;i++){
         if(array[i]["id"] == valor){
@@ -616,8 +627,9 @@ function procuraArray(array, valor){
     return 0;
     }
 }
-*/
+
 }
+*/
 
 function procuraClique(){
     setTimeout(()=>{
@@ -626,6 +638,7 @@ function procuraClique(){
             detalhesFilme[i].addEventListener('click', (teste) => {
                 let codigo = teste.target.getAttribute('codigo');
                 localStorage.setItem('codigo', codigo);
+                window.location.href = 'detalhes.html';
             });
     }
     }, 100);
@@ -635,11 +648,11 @@ function procuraClique(){
             detalhesFilme[i].addEventListener('click', (teste) => {
                 let codigo = teste.target.getAttribute('codigo');
                 localStorage.setItem('codigo', codigo);
+                window.location.href = 'detalhes.html';
                 console.log(codigo)
         });
     }
     }, 5000);
-
 }
 
 window.onload = () => {
@@ -698,7 +711,11 @@ window.onload = () => {
     genSus.onclick = () => mudaGenero(18);
     
     carregaDestaques();
-    maisDestaque.onclick = carregaMaisDestaque;
+    
+    maisDestaque.onclick = () => {
+        carregaMaisDestaque
+        procuraClique();
+    };
 
     carregaPrincipal();
 
@@ -708,4 +725,9 @@ window.onload = () => {
     }, 1000);
 
     procuraClique();
+
+//    setTimeout(()=>{
+//        console.log(pegaCategoria());
+//    }, 5000);
+    
 };
