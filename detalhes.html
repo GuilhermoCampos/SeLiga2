@@ -16,6 +16,9 @@
     <script src="./javascript/criapagina.js"></script>
 </head>
 <body>
+    <a href="#voltaInicio" style="position:fixed; bottom: 20px; right: 20px; z-index: 999;"> <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" color="white" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"/>
+      </svg></a>
     <div class="container corpo rainbow">
 
 
@@ -63,15 +66,43 @@
                 <!-- Lançamentos -->
 
                 <div class="col-12 lancamento">
-                    <h1 id="tituloFilme"></h1>
+                    <h1 id="tituloFilme">Carregando</h1>
+                    <h2 id="subTitulo">Subtitulo</h2>
                     <div class="row">
-                        <div id="bannerFilme" class="col-sm-12 col-md-6 col-lg-4">
+                        <div id="bannerFilme" class="col-sm-12 col-md-6 col-lg-4">Carregando</div>
+                        <div id="infoFIlme" class="col-sm-12 col-md-6 col-lg-8" style="color: white;">
+                                <div class="col-12" style="margin: 10px 0; ">
+                                    <h2>Sinopse: </h2>
+                                    <div id="sinopseFilme"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-lg-6" style="align-items: left; text-align: left;">
+                                        <p></p>
+                                        Lançamento:
+                                        <br>Status:
+                                        <br>Avaliação:
+                                        <br>Quantidade de votos:
+                                        <br>Orçamento:
+                                        <br>Receita:
+                                        <br>Popularidade:
+                                    </div>
+                                    <div class="col-sm-12 col-md-12 col-lg-6" style="align-items: left; text-align: left;">
+                                        <p></p>
+                                        Link TMDB:
+                                        <br>Link imdb
+                                        <br>Generos: 
+                                        <br>Produtoras:
+                                        <br>Locais Produção: 
+                                        
+
+
+                                    </div>
+                                </div>
 
                         </div>
-                        <div id="infoFIlme" class="col-sm-12 col-md-6 col-lg-8" style="color: white;">
-                            <h2>Sinopse: </h2>
-                            <div id="sinopseFilme"></div>
-                        </div>
+                    </div>
+                    <div id="trailers" class="row lancamento" >
+                        
                     </div>
                 </div>
             </div>
@@ -166,16 +197,10 @@
 
                     <div class="row">
                         <div class="col-12 titulo social">
-                            <h2>Editorial</h2>
+                            <h2>Desenvolvimento</h2>
                             <a href="https://github.com/GuilhermoCampos" style="text-decoration: none;"><p><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" color="white" class="bi bi-person-badge-fill" viewBox="0 0 16 16">
                                 <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm4.5 0a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5 2.755C12.146 12.825 10.623 12 8 12s-4.146.826-5 1.755V14a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-.245z"/>
-                              </svg>&nbsp<strong>Redação: </strong>Guilherme Campos</p></a>
-                            <a href="https://github.com/GuilhermoCampos" style="text-decoration: none;"><p><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" color="white" class="bi bi-person-badge-fill" viewBox="0 0 16 16">
-                                <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm4.5 0a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5 2.755C12.146 12.825 10.623 12 8 12s-4.146.826-5 1.755V14a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-.245z"/>
-                              </svg>&nbsp<strong>Pesquisa: </strong>Guilherme Campos</p></a>
-                            <a href="https://github.com/GuilhermoCampos" style="text-decoration: none;"><p><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" color="white" class="bi bi-person-badge-fill" viewBox="0 0 16 16">
-                                <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm4.5 0a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3zM8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5 2.755C12.146 12.825 10.623 12 8 12s-4.146.826-5 1.755V14a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-.245z"/>
-                              </svg>&nbsp<strong>Gerente Geral: </strong>Guilherme Campos</p></a>
+                              </svg>&nbsp<strong>Programador: </strong>Guilherme Campos</p></a>
                             <p><h2>Redes Sociais:</h2></p>
                             <p>
                                 <a href="https://github.com/GuilhermoCampos"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" color="white" class="bi bi-github" viewBox="0 0 16 16">

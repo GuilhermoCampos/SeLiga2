@@ -335,6 +335,7 @@ function carregaPrincipal(){
             let nota = parseInt(estrela);
             let votos = item[i]["vote_count"];
             console.log(estrela)
+            
             if (sinopse.length == 0){
                 sinopse = 'Sinopse não encontrada'
             }
