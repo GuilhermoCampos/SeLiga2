@@ -351,13 +351,6 @@ body{
     .medium-hide{
         display: none;
     }
-    #resultadoPesquisa{
-        width: 50px; 
-        opacity: 50;
-        background-color: red; 
-        color: black; 
-        z-index: 999; 
-    }
 }
 
 @media screen and (min-width:996) and (max-width:1400){
@@ -374,17 +367,5 @@ body{
     .carousel-item{
         margin-left: 0px;
         width: 100%;
-    }
-    #resultadoPesquisa{
-        width: 700px; 
-        position: absolute; 
-        opacity: 50;
-        background-color: red; 
-        color: black; 
-        z-index: 999; 
-        top: 65px; 
-        right: 150px;
-        border-radius: 0 0 5px 5px;
-    
     }
 }
