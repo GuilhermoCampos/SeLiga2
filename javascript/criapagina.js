@@ -60,7 +60,9 @@ function criaPagina(id){
         let bannerCaminho = resposta["poster_path"];
         let sinopse = resposta["overview"];
         let estrela = resposta["vote_average"]/2;
-        let lancamento = resposta["release_date"].replace('-', '/');
+        let estrelaCheia = '★';
+        let estrelaVazia = '☆';
+        let lancamento = resposta["release_date"].replaceAll('-', '/');
         let popularidade = resposta["popularity"];
         let nota = parseInt(estrela);
         let votos = resposta["vote_count"];
@@ -76,6 +78,22 @@ function criaPagina(id){
         let adulto = resposta["adult"];
         let colecao = resposta["belongs_to_collection"];
 
+        if(site != ''){
+            site = `Site:  ${site}`; 
+        }
+        if (adulto){
+            adulto = `Classificação: <span style="color:red;">+18</span>`;
+        }
+        else{
+            adulto = '';
+        }
+        if (status == 'Released'){
+            status = '<span style="color: green;">Lançado</span>';
+        }
+        else{
+            status = '<span style="color: red;">Não Lançado</span>'
+        }
+
         // estrelaCheia.repeat(nota)}${estrelaVazia.repeat(5-nota)
 
 
@@ -85,11 +103,43 @@ function criaPagina(id){
         let subTitulo = document.getElementById('subTitulo');
         let banner = document.getElementById('bannerFilme');
         let sinopseFilme = document.getElementById('sinopseFilme');
+        let dataLancamento = document.getElementById('lancamento');
+        let statusFilme = document.getElementById('status');
+        let avaliacao = document.getElementById('avaliacao');
+        let quantVotos = document.getElementById('quantVotos');
+        let popularidadeFilme = document.getElementById('popularidade');
+        let orcamentoFilme = document.getElementById('orcamento');
+        let receitaFilme = document.getElementById('receita');
+        let adultoFilme = document.getElementById('adulto');
+        let linkFilme = document.getElementById('linkFilme');
+        let linkImdb = document.getElementById('imdb');
+        let linkTmdb = document.getElementById('tmdb');
+        let generosFilme = document.getElementById('generos');
+        let produtorasFilme = document.getElementById('produtoras');
+        let paisProd = document.getElementById('paises');
+    
+        
+
+
         titulo.innerHTML = `${tituloFilme}`;
         subTitulo.innerHTML = `${subtitulo}`;
         banner.innerHTML = `<img src="https://image.tmdb.org/t/p/w500/${bannerCaminho}" alt="" style="width:100%;">`;
         
         sinopseFilme.innerHTML = `${sinopse}`;
+
+        dataLancamento.innerHTML = `${lancamento}`;
+        statusFilme.innerHTML = `${status}`;
+        avaliacao.innerHTML = `<span class="estrelas"> ${estrelaCheia.repeat(nota)}${estrelaVazia.repeat(5-nota)} <span class="notaAvaliacao"> ${estrela}</span></span>`;
+        quantVotos.innerHTML = ` ${votos}`;
+        popularidadeFilme.innerHTML = ` ${popularidade}`;
+        orcamentoFilme.innerHTML = `$ ${orcamento}`;
+        receitaFilme.innerHTML = `$ ${receita}`;
+        adultoFilme.innerHTML = `${adulto}`;
+
+        linkFilme.innerHTML = `${site}`
+        linkImdb.innerHTML = `www.imdb.com/title/${imdbId}`;
+        linkTmdb.innerHTML = `www.themoviedb.org/movie/${tmdbId}`;
+
 
 
         xhr.open('GET', `https://api.themoviedb.org/3/movie/${tmdbId}/videos?api_key=e1258f69d2028209abb4b199f1cb534c&language=pt-BR`);
