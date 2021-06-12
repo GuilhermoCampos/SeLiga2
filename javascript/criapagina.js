@@ -77,9 +77,37 @@ function criaPagina(id){
         let generos = resposta["genres"];
         let adulto = resposta["adult"];
         let colecao = resposta["belongs_to_collection"];
+        let tempo = resposta["runtime"];
 
+        let hora = '';
+        let minuto = '';
+
+        if(parseInt(tempo/60) == 1){
+            hora = `${parseInt(tempo/60)} hora`;
+        }
+        else if(parseInt(tempo/60) > 1){
+            hora = `${parseInt(tempo/60)} horas`; 
+        }
+        if(tempo%60 == 1){
+            minuto = `${tempo%60} minuto`;
+        }
+        else if(tempo%60 > 1){
+            minuto = `${tempo%60} minutos`; 
+        }
+        if(orcamento == 0){
+            orcamento = 'Indisponível';
+        }
+        else{
+            orcamento = `$${parseFloat(orcamento)}.00`;
+        }
+        if(receita == 0){
+            receita = 'Indisponível';
+        }
+        else{
+            receita = `$${parseFloat(receita)}.00`;
+        }
         if(site != ''){
-            site = `Site:  ${site}`; 
+            site = `Site:  <a style="color:white;" href="${site}">${site}</a>`; 
         }
         if (adulto){
             adulto = `Classificação: <span style="color:red;">+18</span>`;
@@ -110,6 +138,7 @@ function criaPagina(id){
         let popularidadeFilme = document.getElementById('popularidade');
         let orcamentoFilme = document.getElementById('orcamento');
         let receitaFilme = document.getElementById('receita');
+        let ducacao = document.getElementById('duracao');
         let adultoFilme = document.getElementById('adulto');
         let linkFilme = document.getElementById('linkFilme');
         let linkImdb = document.getElementById('imdb');
@@ -123,7 +152,7 @@ function criaPagina(id){
 
         titulo.innerHTML = `${tituloFilme}`;
         subTitulo.innerHTML = `${subtitulo}`;
-        banner.innerHTML = `<img src="https://image.tmdb.org/t/p/w500/${bannerCaminho}" alt="" style="width:100%;">`;
+        banner.innerHTML = `<img src="https://image.tmdb.org/t/p/w500/${bannerCaminho}" alt="" style="width:100%; border: 5px solid black; border-radius: 15px;">`;
         
         sinopseFilme.innerHTML = `${sinopse}`;
 
@@ -132,15 +161,31 @@ function criaPagina(id){
         avaliacao.innerHTML = `<span class="estrelas"> ${estrelaCheia.repeat(nota)}${estrelaVazia.repeat(5-nota)} <span class="notaAvaliacao"> ${estrela}</span></span>`;
         quantVotos.innerHTML = ` ${votos}`;
         popularidadeFilme.innerHTML = ` ${popularidade}`;
-        orcamentoFilme.innerHTML = `$ ${orcamento}`;
-        receitaFilme.innerHTML = `$ ${receita}`;
+        orcamentoFilme.innerHTML = `${orcamento}`;
+        receitaFilme.innerHTML = `${receita}`;
+        ducacao.innerHTML = `${hora} ${minuto}`;
         adultoFilme.innerHTML = `${adulto}`;
 
         linkFilme.innerHTML = `${site}`
-        linkImdb.innerHTML = `www.imdb.com/title/${imdbId}`;
-        linkTmdb.innerHTML = `www.themoviedb.org/movie/${tmdbId}`;
+        linkImdb.innerHTML = `<a style="color:white;" href="http://www.imdb.com/title/${imdbId}">www.imdb.com/title/${imdbId}</a>`;
+        linkTmdb.innerHTML = `<a style="color:white;" href="http://www.themoviedb.org/movie/${tmdbId}">www.themoviedb.org/movie/${tmdbId}</a>`;
+        
+    
+        for(i=0; i<generos.length;i++){
+            generosFilme.innerHTML 
+            += `<span style="padding: 1px 5px; background: rgb(42, 42, 43); border: 1px solid black; border-radius: 15px;">${generos[i]["name"]}</span> `;
+            console.log("oi")
+        }
 
+        for(i=0; i<produtoras.length;i++){
+            produtorasFilme.innerHTML 
+            = `${produtoras[i]["name"]}`;
+        }
 
+        for(i=0; i<paisProduzido.length;i++){
+            paisProd.innerHTML 
+            = `${paisProduzido[i]["name"]}`;
+        }
 
         xhr.open('GET', `https://api.themoviedb.org/3/movie/${tmdbId}/videos?api_key=e1258f69d2028209abb4b199f1cb534c&language=pt-BR`);
         xhr.onload = ()=> {

@@ -292,7 +292,7 @@ function buscaPesquisa(texto){
         escreve.innerHTML = '';
         for (i=0; i<resposta.length; i++){
             escreve.innerHTML +=`
-            <div codigo=${resposta[i]["id"]} class="detalhesFilme tituloPesquisa">${resposta[i]["title"]}</div>
+            <div codigo="${resposta[i]["id"]}" class="detalhesFilme tituloPesquisa">${resposta[i]["title"]}</div>
             `;
         }
     
@@ -335,7 +335,7 @@ function carregaPrincipal(){
             let nota = parseInt(estrela);
             let votos = item[i]["vote_count"];
             console.log(estrela)
-            
+
             if (sinopse.length == 0){
                 sinopse = 'Sinopse não encontrada'
             }
@@ -638,8 +638,10 @@ function procuraClique(){
         var detalhesFilme = document.getElementsByClassName('detalhesFilme');
         for (i=0; i<detalhesFilme.length; i++){
             detalhesFilme[i].addEventListener('click', (teste) => {
-                let codigo = teste.target.getAttribute('codigo');
+              let codigo = objeto.target.getAttribute('codigo');
+                let tipo = objeto.target.getAttribute('tipo');
                 localStorage.setItem('codigo', codigo);
+                localStorage.setItem('tipo', tipo);
                 window.location.href = 'detalhes.html';
             });
     }
@@ -648,8 +650,23 @@ function procuraClique(){
         var detalhesFilme = document.getElementsByClassName('detalhesFilme');
         for (i=0; i<detalhesFilme.length; i++){
             detalhesFilme[i].addEventListener('click', (teste) => {
-                let codigo = teste.target.getAttribute('codigo');
+                let codigo = objeto.target.getAttribute('codigo');
+                let tipo = objeto.target.getAttribute('tipo');
                 localStorage.setItem('codigo', codigo);
+                localStorage.setItem('tipo', tipo);
+                window.location.href = 'detalhes.html';
+                console.log(codigo)
+        });
+    }
+    }, 1000);
+    setTimeout(()=>{
+        var detalhesFilme = document.getElementsByClassName('detalhesFilme');
+        for (i=0; i<detalhesFilme.length; i++){
+            detalhesFilme[i].addEventListener('click', (objeto) => {
+                let codigo = objeto.target.getAttribute('codigo');
+                let tipo = objeto.target.getAttribute('tipo');
+                localStorage.setItem('codigo', codigo);
+                localStorage.setItem('tipo', tipo);
                 window.location.href = 'detalhes.html';
                 console.log(codigo)
         });
