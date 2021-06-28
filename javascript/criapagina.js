@@ -160,7 +160,6 @@ function criaPagina(id){
         // estrelaCheia.repeat(nota)}${estrelaVazia.repeat(5-nota)
 
 
-        console.log("estepora", resposta)
 
         let titulo = document.getElementById('tituloFilme');
         let subTitulo = document.getElementById('subTitulo');
@@ -209,7 +208,6 @@ function criaPagina(id){
         for(i=0; i<generos.length;i++){
             generosFilme.innerHTML 
             += `<span style="padding: 1px 5px; background: rgb(42, 42, 43); border: 1px solid black; border-radius: 15px;">${generos[i]["name"]}</span> `;
-            console.log("oi")
         }
 
         for(i=0; i<produtoras.length;i++){
@@ -224,10 +222,7 @@ function criaPagina(id){
 
         xhr.open('GET', `https://api.themoviedb.org/3/movie/${tmdbId}/videos?api_key=e1258f69d2028209abb4b199f1cb534c&language=pt-BR`);
         xhr.onload = ()=> {
-            console.log("pega video principal")
-                console.log(xhr.response, "resposta trailers")
                 let chave = JSON.parse(xhr.response)["results"];
-                console.log(chave);
                 if (chave.length != 0){
                     let addItem = document.getElementById("trailers");
                     addItem.innerHTML += `<h1>Trailers</h1>`;
