@@ -1,56 +1,91 @@
-/*
-var opened = window.open("");
-opened.document.write("<html><head><title>MyTitle</title></head><body>test</body></html>");
+window.onload = () => {
+    criaPagina(codigo);
 
-https://api.themoviedb.org/3/movie/${id}?api_key=e1258f69d2028209abb4b199f1cb534c&language=pt-BR
-
-https://image.tmdb.org/t/p/w300/
-
-https://image.tmdb.org/t/p/original/wdrCwmRnLFJhEoH8GSfymY85KHT.svg
-
-*/
-/*
-xhr.open('GET', `https://api.themoviedb.org/3/movie/${id}/videos?api_key=e1258f69d2028209abb4b199f1cb534c&language=pt-BR`);
-xhr.onload = ()=> {
-    console.log("pega video principal")
-    setTimeout(()=>{
-        let lista = ['pera', 'mamão', 'limão']
-        let chave = JSON.parse(xhr.response)["results"][0]["key"];
-        console.log(chave, i);
-        let addItem = document.getElementById("addItem");
-        addItem.innerHTML += `
-        <div codigo="${id}" class="carousel-item  ${ativo}">
-            <div class="row lancamento-conteudo">
-                <div class="col-sm-12 col-md-6 trailer">
-                    <iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/${chave}" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-            </div>
-        </div>`;
-    }, 25);
-    i++;
-    if(i == 20){
-        clearInterval(loop);
+    pesquisa.oninput = () => {
+        buscaPesquisa(pesquisa.value)
+        procuraClique();
+    };
+    dontTouch.onclick = () => {
+        let coloridos = document.getElementsByClassName('rainbow');
+        let t = 0;
+    
+        for(let i=0; i < coloridos.length; i++){
+            coloridos[i].style.border = '2px solid black';
+            coloridos[i].style.borderRadius = '15px';
+        }
+        
+        var loop = setInterval(() => {
+            rainbow();
+            if( t == 3000){
+                clearInterval(loop);
+                alert('Tchau :D');
+                window.location.href = 'detalhes.html';
+            }
+            t++;
+        }, 10);
+        
+        var audio = new Audio('./javascript/dontouch.mp3');
+        audio.play();
+    
+        alert('Falei pra n me tocar');
     }
-};
-xhr.onerror = ()=> {
-    alert("QUEBRAAAA");
+    
+    setInterval(()=> {
+        let pesquisa = document.getElementById('pesquisa').getBoundingClientRect();
+        let resultado = document.getElementById('resultadoPesquisa');
+        let latitude = pesquisa["y"] + 38;
+        let longitude = pesquisa["x"];
+        let largura = pesquisa["width"];
+        resultado.style.top = `${latitude}px`;
+        resultado.style.left = `${longitude}px`;
+        resultado.style.width = `${largura}px`
+    }, 1);
+
+    pesquisa.onfocus = () => {
+        let pesquisa = document.getElementById('pesquisa').getBoundingClientRect();
+        let resultado = document.getElementById('resultadoPesquisa');
+        let latitude = pesquisa["y"] + 38;
+        let longitude = pesquisa["x"];
+
+        let largura = pesquisa["width"];
+        resultado.style.top = `${latitude}px`;
+        resultado.style.left = `${longitude}px`;
+        resultado.style.width = `${largura}px`
+    }
+
+    genTodos.onclick = () => mudaGenero(0);
+    genAcao.onclick = () => mudaGenero(1);
+    genAventura.onclick = () => mudaGenero(2);
+    genRomance.onclick = () => mudaGenero(3);
+    genComedia.onclick = () => mudaGenero(4);
+    genAnima.onclick = () => mudaGenero(5);
+    genCrime.onclick = () => mudaGenero(6);
+    genDoc.onclick = () => mudaGenero(7);
+    genDrama.onclick = () => mudaGenero(8);
+    genFamilia.onclick = () => mudaGenero(9);
+    genFanta.onclick = () => mudaGenero(10);
+    genHist.onclick = () => mudaGenero(11);
+    genHorror.onclick = () => mudaGenero(12);
+    genMusica.onclick = () => mudaGenero(13);
+    genMisterio.onclick = () => mudaGenero(14);
+    genSciFi.onclick = () => mudaGenero(15);
+    genGuerra.onclick = () => mudaGenero(16);
+    genVelho.onclick = () => mudaGenero(17);
+    genSus.onclick = () => mudaGenero(18);
+    
+    carregaDestaques();
+    
+    maisDestaque.onclick = () => {
+        carregaMaisDestaque();
+        procuraClique();
+    };
+
+
+    procuraClique();
 }
-xhr.send();
-
-
-
-www.imdb.com/title/
-www.themoviedb.org/movie/
-
-https://api.themoviedb.org/3/collection/837007?api_key=e1258f69d2028209abb4b199f1cb534c&language=pt-BR
-*/
-
-
 
 var codigo = localStorage.getItem('codigo');
 function criaPagina(id){
-    
-    //localStorage.clear();
     let xhr = new XMLHttpRequest;
     xhr.open('GET', `https://api.themoviedb.org/3/movie/${codigo}?api_key=e1258f69d2028209abb4b199f1cb534c&language=pt-BR`);
     xhr.onload = () => {
@@ -214,78 +249,3 @@ function criaPagina(id){
     xhr.send()
 }
 
-
-
-
-
-
-
-
-
-window.onload = () => {
-    criaPagina(codigo);
-
-    pesquisa.oninput = () => {
-        buscaPesquisa(pesquisa.value)
-        procuraClique();
-    };
-    dontTouch.onclick = numetoca
-    
-    setInterval(()=> {
-        let pesquisa = document.getElementById('pesquisa').getBoundingClientRect();
-        let resultado = document.getElementById('resultadoPesquisa');
-        let latitude = pesquisa["y"] + 38;
-        let longitude = pesquisa["x"];
-        let largura = pesquisa["width"];
-        resultado.style.top = `${latitude}px`;
-        resultado.style.left = `${longitude}px`;
-        resultado.style.width = `${largura}px`
-    }, 1);
-
-    pesquisa.onfocus = () => {
-        let pesquisa = document.getElementById('pesquisa').getBoundingClientRect();
-        let resultado = document.getElementById('resultadoPesquisa');
-        let latitude = pesquisa["y"] + 38;
-        let longitude = pesquisa["x"];
-
-        let largura = pesquisa["width"];
-        resultado.style.top = `${latitude}px`;
-        resultado.style.left = `${longitude}px`;
-        resultado.style.width = `${largura}px`
-    }
-    // pesquisa.onblur = () => {
-    //     let escreve = document.getElementById('resultadoPesquisa');
-    //     escreve.innerHTML = '';
-    // };
-
-
-    genTodos.onclick = () => mudaGenero(0);
-    genAcao.onclick = () => mudaGenero(1);
-    genAventura.onclick = () => mudaGenero(2);
-    genRomance.onclick = () => mudaGenero(3);
-    genComedia.onclick = () => mudaGenero(4);
-    genAnima.onclick = () => mudaGenero(5);
-    genCrime.onclick = () => mudaGenero(6);
-    genDoc.onclick = () => mudaGenero(7);
-    genDrama.onclick = () => mudaGenero(8);
-    genFamilia.onclick = () => mudaGenero(9);
-    genFanta.onclick = () => mudaGenero(10);
-    genHist.onclick = () => mudaGenero(11);
-    genHorror.onclick = () => mudaGenero(12);
-    genMusica.onclick = () => mudaGenero(13);
-    genMisterio.onclick = () => mudaGenero(14);
-    genSciFi.onclick = () => mudaGenero(15);
-    genGuerra.onclick = () => mudaGenero(16);
-    genVelho.onclick = () => mudaGenero(17);
-    genSus.onclick = () => mudaGenero(18);
-    
-    carregaDestaques();
-    
-    maisDestaque.onclick = () => {
-        carregaMaisDestaque();
-        procuraClique();
-    };
-
-
-    procuraClique();
-}
