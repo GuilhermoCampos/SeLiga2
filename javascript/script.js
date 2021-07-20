@@ -67,7 +67,7 @@ window.onload = () => {
     setTimeout(()=>{
         let itemCarrosel = document.getElementsByClassName('carousel-item');
         itemCarrosel[0].classList.add('active');
-    }, 1000);
+    }, 2000);
 
     procuraClique();
     
